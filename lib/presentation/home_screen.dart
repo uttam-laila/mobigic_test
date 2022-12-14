@@ -19,6 +19,14 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             Expanded(child: Container()),
+            Icon(
+              Icons.gamepad,
+              color: AppConstants.green,
+              size: 36.sp,
+            ),
+            SizedBox(
+              height: 42.h,
+            ),
             ContainerWithBorder(
               borderRadius: 12.sp,
               borderColor: AppConstants.textColor,
