@@ -1,31 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobigic_test/application/common_provider.dart';
 import 'package:mobigic_test/presentation/home_screen.dart';
 import 'package:mobigic_test/presentation/widgets/container_with_border.dart';
 import 'package:mobigic_test/presentation/widgets/custom_button.dart';
 import 'package:mobigic_test/presentation/widgets/custom_text_field.dart';
-import 'package:mobigic_test/presentation/widgets/search.dart';
+import 'package:provider/provider.dart';
 
-TextEditingController _controller = TextEditingController();
-
-class Puzzle extends StatefulWidget {
-  const Puzzle({super.key, required this.m, required this.n, required this.x});
-  final int m;
-  final int n;
-  final String x;
-
-  @override
-  State<Puzzle> createState() => _PuzzleState();
-}
-
-List<int> _list = [];
-
-class _PuzzleState extends State<Puzzle> {
-  @override
-  void initState() {
-    _list.clear();
-    super.initState();
-  }
+class Puzzle extends StatelessWidget {
+  const Puzzle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,21 +21,40 @@ class _PuzzleState extends State<Puzzle> {
               height: 120.h,
             ),
             SizedBox(
-              height: widget.n * 90,
+              height: int.parse(
+                      Provider.of<CommonProvider>(context)
+                          .controllerN
+                          .text) *
+                  90,
               child: GridView(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: widget.m),
+                    crossAxisCount: int.parse(
+                        Provider.of<CommonProvider>(context)
+                            .controllerM
+                            .text)),
                 children: [
-                  for (int i = 0; i < widget.x.length; i++)
+                  for (int i = 0;
+                      i <
+                          Provider.of<CommonProvider>(context)
+                              .controllerX
+                              .text
+                              .length;
+                      i++)
                     Center(
                       child: ContainerWithBorder(
                         borderColor: Colors.black45,
-                        boxColor:
-                            _list.contains(i) ? Colors.amber : Colors.white,
+                        boxColor: Provider.of<CommonProvider>(context)
+                                .list
+                                .contains(i)
+                            ? Colors.amber
+                            : Colors.white,
                         margin: EdgeInsets.all(2.sp),
                         borderRadius: 10.sp,
                         child: Text(
-                          widget.x[i].toUpperCase(),
+                          Provider.of<CommonProvider>(context)
+                              .controllerX
+                              .text[i]
+                              .toUpperCase(),
                         ),
                       ),
                     ),
@@ -64,7 +66,8 @@ class _PuzzleState extends State<Puzzle> {
             ),
             CustomTextField(
               hintText: 'Enter text to search',
-              controller: _controller,
+              controller: Provider.of<CommonProvider>(context)
+                  .controllerSearch,
             ),
             SizedBox(
               height: 36.h,
@@ -72,22 +75,7 @@ class _PuzzleState extends State<Puzzle> {
             CustomButton(
               lable: 'Search',
               onTap: () {
-                List<List<String>> val = [];
-
-                for (var i = 0; i < widget.x.length; i += widget.m) {
-                  List<String> xx = [];
-                  for (var j = 0;
-                      j < widget.x.substring(i, widget.m + i).length;
-                      j++) {
-                    xx.add(
-                        widget.x.substring(i, widget.m + i)[j].toUpperCase());
-                  }
-                  val.add(xx);
-                }
-                setState(() {
-                  _list = patternSearch(
-                      val, widget.m, widget.n, _controller.text.toUpperCase());
-                });
+                Provider.of<CommonProvider>(context, listen: false).search();
               },
             ),
             SizedBox(

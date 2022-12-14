@@ -1,27 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mobigic_test/application/common_provider.dart';
 import 'package:mobigic_test/presentation/puzzle_screen.dart';
 import 'package:mobigic_test/presentation/widgets/custom_button.dart';
 import 'package:mobigic_test/presentation/widgets/custom_text_field.dart';
+import 'package:provider/provider.dart';
 
-TextEditingController _controllerM = TextEditingController();
-TextEditingController _controllerN = TextEditingController();
-TextEditingController _controllerX = TextEditingController();
-
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    _controllerM.clear();
-    _controllerN.clear();
-    _controllerX.clear();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,46 +18,54 @@ class _HomePageState extends State<HomePage> {
             Expanded(child: Container()),
             CustomTextField(
               hintText: 'Enter m for mxn',
-              controller: _controllerM,
-              onChanged: (p0) {
-                setState(() {});
-              },
+              controller: Provider.of<CommonProvider>(context).controllerM,
               inputType: TextInputType.number,
+              onChanged: (_) {
+                Provider.of<CommonProvider>(context, listen: false).setState();
+              },
             ),
             CustomTextField(
-                hintText: 'Enter n for mxn',
-                controller: _controllerN,
-                onChanged: (p0) {
-                  setState(() {});
-                },
-                inputType: TextInputType.number),
-            if (_controllerM.text != '' && _controllerN.text != '')
+              hintText: 'Enter n for mxn',
+              controller: Provider.of<CommonProvider>(context).controllerN,
+              inputType: TextInputType.number,
+              onChanged: (_) {
+                Provider.of<CommonProvider>(context, listen: false).setState();
+              },
+            ),
+            if (Provider.of<CommonProvider>(context).controllerM.text != '' &&
+                Provider.of<CommonProvider>(context).controllerN.text != '')
               CustomTextField(
                 hintText:
-                    'Enter ${int.parse(_controllerM.text) * int.parse(_controllerN.text)} letters',
-                controller: _controllerX,
-                maxLength:
-                    int.parse(_controllerM.text) * int.parse(_controllerN.text),
+                    'Enter ${int.parse(Provider.of<CommonProvider>(context).controllerM.text) * int.parse(Provider.of<CommonProvider>(context).controllerN.text)} letters',
+                controller: Provider.of<CommonProvider>(context).controllerX,
+                maxLength: int.parse(
+                        Provider.of<CommonProvider>(context).controllerM.text) *
+                    int.parse(
+                        Provider.of<CommonProvider>(context).controllerN.text),
                 inputType: TextInputType.text,
               ),
             CustomButton(
               lable: 'Proceed',
               onTap: () async {
-                if (_controllerX.text.length <
-                    int.parse(_controllerM.text) *
-                        int.parse(_controllerN.text)) {
+                if (Provider.of<CommonProvider>(context, listen: false)
+                        .controllerX
+                        .text
+                        .length <
+                    int.parse(
+                            Provider.of<CommonProvider>(context, listen: false)
+                                .controllerM
+                                .text) *
+                        int.parse(
+                            Provider.of<CommonProvider>(context, listen: false)
+                                .controllerN
+                                .text)) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(
-                          'Please Enter ${int.parse(_controllerM.text) * int.parse(_controllerN.text)} letters!')));
+                          'Please Enter ${int.parse(Provider.of<CommonProvider>(context, listen: false).controllerM.text) * int.parse(Provider.of<CommonProvider>(context, listen: false).controllerN.text)} letters!')));
                 } else {
                   Navigator.pushAndRemoveUntil(context,
                       MaterialPageRoute(builder: (context) {
-                    return SafeArea(
-                        child: Puzzle(
-                      m: int.parse(_controllerM.text),
-                      n: int.parse(_controllerN.text),
-                      x: _controllerX.text,
-                    ));
+                    return const SafeArea(child: Puzzle());
                   }), (route) => false);
                 }
               },
