@@ -30,7 +30,7 @@ List<int> patternSearch(List<List> grid, int m, int n, String word) {
   // Consider every point as starting
   // point and search given word
   List<int> solution = [];
-  int _x = 1;
+  int x = 1;
   for (int row = 0; row < n; row++) {
     for (int col = 0; col < m; col++) {
       if (search2D(grid, row, col, word, m, n)) {
@@ -39,8 +39,8 @@ List<int> patternSearch(List<List> grid, int m, int n, String word) {
           case 0:
             for (int i = solution[0]; i >= 0; i -= m) {
               if (!solution.contains(i) && solution.length < word.length) {
-                solution.add(i + _x);
-                _x += 1;
+                solution.add(i + x);
+                x += 1;
               }
             }
             break;
@@ -61,9 +61,9 @@ List<int> patternSearch(List<List> grid, int m, int n, String word) {
           default:
         }
         log("pattern found at  $row  $col ");
-        solution.forEach((element) {
+        for (var element in solution) {
           log(element.toString());
-        });
+        }
       }
     }
   }
