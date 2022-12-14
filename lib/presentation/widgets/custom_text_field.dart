@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobigic_test/presentation/core/constants.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -94,12 +95,11 @@ class CustomTextField extends StatelessWidget {
                         : TextStyle(
                             color: lightTheme!
                                 ? Colors.white
-                                : const Color.fromARGB(255, 30, 23, 23),
+                                : AppConstants.textColor,
                           ),
                 keyboardType: inputType,
-                cursorColor: lightTheme!
-                    ? Colors.white
-                    : const Color.fromARGB(255, 30, 23, 23),
+                cursorColor:
+                    lightTheme! ? Colors.white : AppConstants.textColor,
                 initialValue: initialValue,
                 maxLines: maxLines?.toInt() ?? 1,
                 minLines: 1,
@@ -108,16 +108,15 @@ class CustomTextField extends StatelessWidget {
                 decoration: InputDecoration(
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
-                      color: const Color.fromARGB(255, 30, 23, 23).withOpacity(0.2),
+                      color: AppConstants.textColor.withOpacity(0.2),
                       fontSize: 13.sp),
-                  fillColor: lightTheme!
-                      ? Colors.white
-                      : const Color.fromARGB(255, 30, 23, 23),
+                  fillColor:
+                      lightTheme! ? Colors.white : AppConstants.textColor,
                   filled: lightTheme,
                   suffixIcon: suffixIcon,
                   prefixIcon: prefixIcon,
-                  prefixIconColor: const Color.fromARGB(255, 20, 77, 22),
-                  suffixIconColor: const Color.fromARGB(255, 20, 77, 22),
+                  prefixIconColor: AppConstants.green,
+                  suffixIconColor: AppConstants.green,
                   hintText: hintText,
                   counterText: counterText ?? '',
                   contentPadding: smallSize == true
@@ -134,7 +133,7 @@ class CustomTextField extends StatelessWidget {
                           borderSide: BorderSide(
                             color: lightTheme!
                                 ? Colors.white
-                                : const Color.fromARGB(255, 30, 23, 23).withOpacity(0.5),
+                                : AppConstants.textColor.withOpacity(0.5),
                             width: 0.6.w,
                           ),
                           borderRadius: BorderRadius.circular(24.sp),
@@ -143,7 +142,7 @@ class CustomTextField extends StatelessWidget {
                           borderSide: BorderSide(
                             color: lightTheme!
                                 ? Colors.white
-                                : const Color.fromARGB(255, 30, 23, 23).withOpacity(0.5),
+                                : AppConstants.textColor.withOpacity(0.0),
                             width: 0.6.w,
                           ),
                           borderRadius: BorderRadius.circular(24.sp),
@@ -154,7 +153,7 @@ class CustomTextField extends StatelessWidget {
                           borderSide: BorderSide(
                             color: lightTheme!
                                 ? Colors.white
-                                : const Color.fromARGB(255, 30, 23, 23).withOpacity(0.5),
+                                : AppConstants.textColor.withOpacity(0.5),
                             width: 0.5.w,
                           ),
                           borderRadius: BorderRadius.circular(24.sp),
@@ -163,7 +162,7 @@ class CustomTextField extends StatelessWidget {
                           borderSide: BorderSide(
                             color: lightTheme!
                                 ? Colors.white
-                                : const Color.fromARGB(255, 30, 23, 23).withOpacity(0.5),
+                                : AppConstants.textColor.withOpacity(0.5),
                             width: 0.5.w,
                           ),
                           borderRadius: BorderRadius.circular(24.sp),
@@ -173,14 +172,14 @@ class CustomTextField extends StatelessWidget {
                   focusedBorder: borderAround
                       ? OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 20, 77, 22),
+                            color: AppConstants.green,
                             width: 0.8.w,
                           ),
                           borderRadius: BorderRadius.circular(24.sp),
                         )
                       : UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 20, 77, 22),
+                            color: AppConstants.green,
                             width: 0.8.w,
                           ),
                           borderRadius: BorderRadius.circular(24.sp),
@@ -219,8 +218,8 @@ class CustomTextField extends StatelessWidget {
                   labelText: labelText,
                   labelStyle: TextStyle(
                       color: lightTheme!
-                          ? const Color.fromARGB(255, 30, 23, 23)
-                          : const Color.fromARGB(255, 30, 23, 23).withOpacity(0.5),
+                          ? AppConstants.textColor
+                          : AppConstants.textColor.withOpacity(0.5),
                       letterSpacing: 1.sp,
                       fontSize: 15.sp),
                 ),
@@ -228,7 +227,7 @@ class CustomTextField extends StatelessWidget {
                 textAlign: textAlign ?? TextAlign.start,
                 controller: controller,
                 onChanged: onChanged,
-                
+
                 // onSaved: onSaved ?? (val){},
                 onEditingComplete: onEditingComplete,
                 onFieldSubmitted: onFieldSubmitted,
@@ -243,6 +242,4 @@ class CustomTextField extends StatelessWidget {
       ],
     );
   }
-
-  
 }

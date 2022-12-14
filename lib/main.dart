@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobigic_test/application/providers.dart';
 import 'package:mobigic_test/injection.dart';
-import 'package:mobigic_test/presentation/home_screen.dart';
+import 'package:mobigic_test/presentation/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Mobigic Test',
-            home: SafeArea(child: HomePage()),
+            home: SafeArea(child: SplashScreen()),
           );
         },
       ),

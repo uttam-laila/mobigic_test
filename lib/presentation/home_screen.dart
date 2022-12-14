@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobigic_test/application/common_provider.dart';
+import 'package:mobigic_test/presentation/core/constants.dart';
 import 'package:mobigic_test/presentation/puzzle_screen.dart';
+import 'package:mobigic_test/presentation/widgets/container_with_border.dart';
 import 'package:mobigic_test/presentation/widgets/custom_button.dart';
 import 'package:mobigic_test/presentation/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
@@ -16,33 +19,64 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             Expanded(child: Container()),
-            CustomTextField(
-              hintText: 'Enter m for mxn',
-              controller: Provider.of<CommonProvider>(context).controllerM,
-              inputType: TextInputType.number,
-              onChanged: (_) {
-                Provider.of<CommonProvider>(context, listen: false).setState();
-              },
+            ContainerWithBorder(
+              borderRadius: 12.sp,
+              borderColor: AppConstants.textColor,
+              child: CustomTextField(
+                prefixIcon: const Text('  '),
+                hintText: 'Enter m for mxn',
+                controller: Provider.of<CommonProvider>(context).controllerM,
+                inputType: TextInputType.number,
+                onChanged: (_) {
+                  Provider.of<CommonProvider>(context, listen: false)
+                      .setState();
+                },
+              ),
             ),
-            CustomTextField(
-              hintText: 'Enter n for mxn',
-              controller: Provider.of<CommonProvider>(context).controllerN,
-              inputType: TextInputType.number,
-              onChanged: (_) {
-                Provider.of<CommonProvider>(context, listen: false).setState();
-              },
+            SizedBox(
+              height: 32.h,
+            ),
+            ContainerWithBorder(
+              borderRadius: 12.sp,
+              borderColor: AppConstants.textColor,
+              child: CustomTextField(
+                textCapitalization: TextCapitalization.characters,
+                prefixIcon: const Text('  '),
+                hintText: 'Enter n for mxn',
+                controller: Provider.of<CommonProvider>(context).controllerN,
+                inputType: TextInputType.number,
+                onChanged: (_) {
+                  Provider.of<CommonProvider>(context, listen: false)
+                      .setState();
+                },
+              ),
+            ),
+            SizedBox(
+              height: 32.h,
             ),
             if (Provider.of<CommonProvider>(context).controllerM.text != '' &&
                 Provider.of<CommonProvider>(context).controllerN.text != '')
-              CustomTextField(
-                hintText:
-                    'Enter ${int.parse(Provider.of<CommonProvider>(context).controllerM.text) * int.parse(Provider.of<CommonProvider>(context).controllerN.text)} letters',
-                controller: Provider.of<CommonProvider>(context).controllerX,
-                maxLength: int.parse(
-                        Provider.of<CommonProvider>(context).controllerM.text) *
-                    int.parse(
-                        Provider.of<CommonProvider>(context).controllerN.text),
-                inputType: TextInputType.text,
+              ContainerWithBorder(
+                borderRadius: 12.sp,
+                borderColor: AppConstants.textColor,
+                child: CustomTextField(
+                  prefixIcon: const Text('  '),
+                  hintText:
+                      'Enter ${int.parse(Provider.of<CommonProvider>(context).controllerM.text) * int.parse(Provider.of<CommonProvider>(context).controllerN.text)} letters',
+                  controller: Provider.of<CommonProvider>(context).controllerX,
+                  maxLength: int.parse(Provider.of<CommonProvider>(context)
+                          .controllerM
+                          .text) *
+                      int.parse(Provider.of<CommonProvider>(context)
+                          .controllerN
+                          .text),
+                  inputType: TextInputType.text,
+                ),
+              ),
+            if (Provider.of<CommonProvider>(context).controllerM.text != '' &&
+                Provider.of<CommonProvider>(context).controllerN.text != '')
+              SizedBox(
+                height: 32.h,
               ),
             CustomButton(
               lable: 'Proceed',

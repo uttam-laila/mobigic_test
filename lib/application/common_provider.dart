@@ -17,13 +17,15 @@ class CommonProvider with ChangeNotifier {
     controllerM.clear();
     controllerN.clear();
     controllerX.clear();
+    controllerSearch.clear();
+    list.clear();
   }
 
   void setState() {
     notifyListeners();
   }
 
-  void search() {
+  Future<void> search() async{
     List<List<String>> val = [];
 
     for (var i = 0;

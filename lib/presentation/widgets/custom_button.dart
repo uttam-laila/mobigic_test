@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobigic_test/presentation/core/constants.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -59,7 +60,7 @@ class CustomButton extends StatelessWidget {
         width: width?.toDouble() ?? MediaQuery.of(context).size.width,
         height: height?.toDouble() ?? 55,
         decoration: BoxDecoration(
-          color: color ?? const Color.fromARGB(255, 20, 77, 22),
+          color: color ?? AppConstants.green,
           borderRadius: roundButton!
               ? BorderRadius.circular(1000)
               : topCornor!
